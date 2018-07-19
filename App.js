@@ -22,7 +22,7 @@ export default class App extends React.Component {
       let { text, todos } = prevState;
       return {
         text: '',
-        todos: [...todos, { key: text + todos.length, text /* completed */ }]
+        todos: [...todos, { key: text + todos.length, text, completed: false /* completed */ }]
       };
     });
     console.log(this.state.todos);
@@ -30,6 +30,10 @@ export default class App extends React.Component {
 
   handleTextChange = text => {
     this.setState({ text });
+  };
+
+  handleToggle = todo => {
+    this.setState({ todo.completed: !todo.completed })
   };
 
   render() {
@@ -51,7 +55,7 @@ export default class App extends React.Component {
           renderItem={({ item, key }) => {
             return (
               <View key={item.key}>
-                <Text style={/* fill this in with a dynamic style*/ null}>
+                <Text style={item.completed ? { textDecorationStyle: 'line-through' } : { textDecorationStyle: 'solid' }}>
                   {item.text}
                 </Text>
               </View>
